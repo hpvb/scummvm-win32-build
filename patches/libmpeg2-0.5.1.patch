@@ -1,0 +1,58 @@
+diff -urN libmpeg2-0.5.1.org/configure.ac libmpeg2-0.5.1/configure.ac
+--- libmpeg2-0.5.1.org/configure.ac	2008-07-18 16:30:17.000000000 +0200
++++ libmpeg2-0.5.1/configure.ac	2016-10-28 22:16:25.837648473 +0200
+@@ -64,11 +64,11 @@
+     i?86-* | k?-* | x86_64-* | amd64-*)
+ 	AC_DEFINE([ARCH_X86],,[x86 architecture])
+ 	case "$host" in
+-	i386-*) TRY_CFLAGS="$OPT_CFLAGS -mcpu=i386";;
+-	i486-*) TRY_CFLAGS="$OPT_CFLAGS -mcpu=i486";;
+-	i586-*) TRY_CFLAGS="$OPT_CFLAGS -mcpu=pentium";;
+-	i686-*) TRY_CFLAGS="$OPT_CFLAGS -mcpu=pentiumpro";;
+-	k6-*)   TRY_CFLAGS="$OPT_CFLAGS -mcpu=k6";;
++	i386-*) TRY_CFLAGS="$OPT_CFLAGS -mtune=i386";;
++	i486-*) TRY_CFLAGS="$OPT_CFLAGS -mtune=i486";;
++	i586-*) TRY_CFLAGS="$OPT_CFLAGS -mtune=pentium";;
++	i686-*) TRY_CFLAGS="$OPT_CFLAGS -mtune=pentiumpro";;
++	k6-*)   TRY_CFLAGS="$OPT_CFLAGS -mtune=k6";;
+ 	esac
+ 	AC_TRY_CFLAGS([$TRY_CFLAGS $CFLAGS],[OPT_CFLAGS="$TRY_CFLAGS"]);;
+     ppc-* | powerpc-*)
+@@ -97,7 +97,7 @@
+ 	done;;
+     sparc-* | sparc64-*)
+ 	AC_DEFINE([ARCH_SPARC],,[sparc architecture])
+-	TRY_CFLAGS="$OPT_CFLAGS -mcpu=ultrasparc -mvis"
++	TRY_CFLAGS="$OPT_CFLAGS -mtune=ultrasparc -mvis"
+ 	AC_TRY_CFLAGS([$TRY_CFLAGS $CFLAGS],[OPT_CFLAGS="$TRY_CFLAGS"]);;
+     alpha*)
+ 	AC_DEFINE([ARCH_ALPHA],,[alpha architecture]);;
+@@ -142,7 +142,6 @@
+ 
+ dnl Checks for typedefs, structures, and compiler characteristics.
+ AC_C_CONST
+-AC_C_ALWAYS_INLINE
+ AC_C_RESTRICT
+ AC_C_BUILTIN_EXPECT
+ AC_C_BIGENDIAN
+diff -urN libmpeg2-0.5.1.org/libvo/video_out_dx.c libmpeg2-0.5.1/libvo/video_out_dx.c
+--- libmpeg2-0.5.1.org/libvo/video_out_dx.c	2008-07-09 20:28:24.000000000 +0200
++++ libmpeg2-0.5.1/libvo/video_out_dx.c	2016-10-28 22:13:39.200991402 +0200
+@@ -92,7 +92,7 @@
+     switch (message) {
+ 
+     case WM_WINDOWPOSCHANGED:
+-	instance = (dx_instance_t *) GetWindowLong (hwnd, GWL_USERDATA);
++	instance = (dx_instance_t *) GetWindowLongPtr (hwnd, GWLP_USERDATA);
+ 
+ 	/* update the window position and size */
+ 	point_window.x = 0;
+@@ -173,7 +173,7 @@
+     /* store a directx_instance pointer into the window local storage
+      * (for later use in event_handler).
+      * We need to use SetWindowLongPtr when it is available in mingw */
+-    SetWindowLong (instance->window, GWL_USERDATA, (LONG) instance);
++    SetWindowLongPtr (instance->window, GWLP_USERDATA, (LONG) instance);
+ 
+     ShowWindow (instance->window, SW_SHOW);
+ 
