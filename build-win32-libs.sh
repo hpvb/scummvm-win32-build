@@ -6,7 +6,7 @@ export BASEBUILDPREFIX=${HOME}/scummvm-win32/libs-build
 
 export TOOLPREFIX=${HOME}/scummvm-win32/toolchain
 export DOWNLOADPREFIX=${HOME}/scummvm-win32/dl
-export PATCHPREFIX=$(dirname $0)/patches
+export PATCHPREFIX=$(readlink -f $(dirname $0))/patches
 export PATH=${TOOLPREFIX}/bin:${PATH}
 OLDPATH=${PATH}
 
