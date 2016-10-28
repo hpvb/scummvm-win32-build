@@ -99,10 +99,10 @@ for ARCH in 32 64; do
   fi
   mkdir -p ${BUILDPREFIX}/src
 
-  if [ ! -e ${PREFIX}/stamps/${LIBZ} ]; then
+  if [ ! -e ${PREFIX}/stamps/LIBZ-${LIBZ} ]; then
     unpack ${LIBZ}
 
-    pushd ${BUILDPREFIX}/src/LIBZ-${LIBZ}
+    pushd ${BUILDPREFIX}/src/${LIBZ}
     make -f win32/Makefile.gcc clean || /bin/true
 
     make -f win32/Makefile.gcc PREFIX=${HOST}- CFLAGS="${CFLAGS}" LDFLAGS="-m${ARCH}" 
