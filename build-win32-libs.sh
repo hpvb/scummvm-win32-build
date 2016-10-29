@@ -90,7 +90,7 @@ for ARCH in 32 64; do
   export CFLAGS="-m${ARCH} -O3"
   export CPPFLAGS="-I${PREFIX}/include"
   export CXXFLAGS="${CFLAGS}"
-  export LDFLAGS="-m${ARCH} -L${PREFIX}/lib"
+  export LDFLAGS="-m${ARCH} -L${PREFIX}/lib -static-libgcc -static-libstdc++"
 
   mkdir -p ${PREFIX}/stamps
   mkdir -p ${PREFIX}/lib
