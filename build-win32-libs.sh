@@ -105,8 +105,8 @@ for ARCH in 32 64; do
     pushd ${BUILDPREFIX}/src/${LIBZ}
     make -f win32/Makefile.gcc clean || /bin/true
 
-    make -f win32/Makefile.gcc PREFIX=${HOST}- CFLAGS="${CFLAGS}" LDFLAGS="-m${ARCH}" 
-    make -f win32/Makefile.gcc PREFIX=${HOST}- INCLUDE_PATH=${PREFIX}/include/ LIBRARY_PATH=${PREFIX}/lib BINARY_PATH=${PREFIX}/bin SHARED_MODE=1 install
+    make -f win32/Makefile.gcc PREFIX=${HOST}- CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}" 
+    make -f win32/Makefile.gcc PREFIX=${HOST}- LDFLAGS="${LDFLAGS}" INCLUDE_PATH=${PREFIX}/include/ LIBRARY_PATH=${PREFIX}/lib BINARY_PATH=${PREFIX}/bin SHARED_MODE=1 install
 
     touch ${PREFIX}/stamps/LIBZ-${LIBZ}
     popd
