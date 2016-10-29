@@ -77,6 +77,7 @@ fi
 if [ ! -e ${PREFIX}/stamps/${GCC} ]; then
   pushd ${BUILDPREFIX}/${GCC}
 
+  ${BUILDPREFIX}/src/${GCC}/configure --enable-languages=c,c++ --target=x86_64-w64-mingw32 --enable-targets=all --with-sysroot=${PREFIX} --prefix=${PREFIX}
   make -j4
   make install
   touch ${PREFIX}/stamps/${GCC}
